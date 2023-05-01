@@ -1,0 +1,21 @@
+*{
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.App{
+  width: 50%;
+  margin: 2em auto;
+  background-color: rgb(57, 64, 73);
+  color: rgb(255, 255, 255);
+  border-radius: 4px;
+}
+
+header{
+  background-color: rgb(255, 255, 255);
+  padding: 1px;
+  color: rgb(6, 1, 34);
+  border-bottom: 4px solid rgba(25, 1, 34, 0.315);
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.185);
+}

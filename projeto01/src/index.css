@@ -1,0 +1,10 @@
+html{
+  background-image: linear-gradient(to bottom, rgb(32, 119, 190), rgb(108, 222, 226));
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+}
+body{
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
