@@ -13,7 +13,18 @@ const [loading, setLoading] = useState(false);
 const handleSubmit = function(e){
   e.preventDefault();
   setTitle("");
-  console.log(title)
+  
+  const todo = {
+    id: Math.random(),
+    title,
+    time,
+    done: false,
+  }
+  //envio para API
+  console.log(todo);
+
+  setTime("");
+  setTitle("");
 }
   return (
     <div className="App">
