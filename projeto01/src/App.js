@@ -1,7 +1,7 @@
 import './App.css';
 
 import { useState, useEffect } from 'react';
-import { BsTrash, BsBookmarkCheck, BsBookmarckCheckfill } from 'react-icons/bs';
+import { BsTrash, BsBookmarkCheck, BsBookmarkCheckFill } from 'react-icons/bs';
 
 const API = "http://localhost:5000";
 
@@ -20,8 +20,8 @@ function App() {
         .then((data) => data) // nomeia res como data
         .catch((error) => console.log(error)); //tratamento de erro
 
-        setLoading(false);
-        setList(res);
+      setLoading(false);
+      setList(res);
     };
     loadData();
   }, []);
@@ -45,15 +45,37 @@ function App() {
       }
     }); //pode dar erro de referencia
 
+
     setList((prevState) => [...prevState, todo])
-    
+
     setTime("");
     setTitle("");
   }
 
-if(loading){
-  return <p>Carregando...</p>
-}
+  const handleDelete = async function (id) {
+    await fetch(API + "/project/" + id, {
+      method: "DELETE",
+    });
+    setList((prevState) => prevState.filter((todo) => todo.id !== id));
+  }
+
+  const handleEdit = async function (todo) {
+    todo.done = !todo.done;
+    const data = await fetch(API + "/project/" + todo.id, {
+      method: "PUT",
+      body: JSON.stringify(todo),
+      headers: {
+        "Content-type": "application/json",
+      }
+    });
+    setList((prevState) =>
+     prevState.map((t) => (t.id === data.id ? (t = data) : t))
+     );
+  }
+
+  if (loading) {
+    return <p>Carregando...</p>
+  }
 
   return (
     <div className="App">
@@ -80,16 +102,16 @@ if(loading){
       <div className="list">
         <h2>Tarefas:</h2>
         {list.length === 0 && <p>Não há tarefas ativas!</p>}
-        
+
         {list.map((todo) => (
           <div className="todo" key={todo.id}>
             <h3 className={todo.done ? "todo-done" : ""}>{todo.title}</h3>
             <p>Duração: {todo.time}</p>
             <div className="actions">
-              <span>
-                {!todo.done ? <BsBookmarkCheck/> : <BsBookmarckCheckfill/>}
+              <span onClick={() => handleEdit(todo)}>
+                {!todo.done ? <BsBookmarkCheck /> : <BsBookmarkCheckFill />}
               </span>
-              <BsTrash/>
+              <BsTrash onClick={() => handleDelete(todo.id)} />
             </div>
           </div>
         ))}
